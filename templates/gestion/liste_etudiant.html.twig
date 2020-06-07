@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<h1 class="text-center">Liste des étudiants</h1>
+<ul class="list-group list-group-flush"></ul>
+{% for etudiant in etudiants %}
+    <li class="list-group-item {{etudiant.Id}}">
+        <div>
+            First Name :<span class="font-weight-bold">
+                {{etudiant.FirstName}}
+            </span> 
+        </div>
+        <div >
+            Last Name : <span  class="font-weight-bold">
+                {{etudiant.LastName}}
+            </span>
+        </div>
+        <div >
+            Departement : <span  class="font-weight-bold">
+                {{etudiant.Departement.Name}}
+            </span>
+        </div>
+        <div class="row">
+            <div class="col" >
+                Number : <span class="font-weight-bold">
+                    {{etudiant.NumEtud}}</span>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <a href="{{ path('etudiant_edit', {'id':etudiant.id}) }}"> <button class="btn btn-secondary">Modifier </button>
+                </a> <a href="{{ path('sup', {'id':etudiant.id}) }}" class="elemSup"> <button class="btn btn-danger">Supprimer</button>
+                  </a>
+            </div>
+        </div>
+        
+    </li>
+  
+{% endfor %}
+</ul>
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+    
+    const elems=document.querySelectorAll('a.elemSup').forEach(function(elem){
+        elem.addEventListener('click',function(e){
+            e.preventDefault();
+            
+            const url=this.href;
+            axios.get(url).then(function(response){
+               console.log(response.data);
+               document.getElementsByClassName(response.data.id).item(0).remove();
+            })
+
+    })
+    })
+    </script>
+{% endblock %}
+{% endblock %}

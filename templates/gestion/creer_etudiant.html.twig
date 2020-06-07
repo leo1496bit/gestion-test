@@ -1,0 +1,24 @@
+{% extends 'base.html.twig'%}
+{% form_theme formEtud 'bootstrap_4_layout.html.twig'%}
+{% block body %}
+<h1 class="text-center">Formulaire etudiant</h1>
+
+{{ form_start(formEtud) }}
+
+{{ form_row(formEtud.FirstName,{'attr':{'placeholder':"Votre 
+FirstName"}}) }}
+{{ form_row(formEtud.LastName,{'attr':{'placeholder':"Votre 
+LastName"}}) }}
+{{ form_row(formEtud.Departement) }}
+{{ form_row(formEtud.NumEtud,{'attr':{'placeholder':"Votre 
+Num Etudiant"}}) }}
+<button type="submit" class="btn btn-success">
+    {% if id == null %}
+    Creer
+    {% else %}
+    Modifier
+    {% endif %}
+</button>
+
+{{ form_end(formEtud) }}
+{% endblock %}
